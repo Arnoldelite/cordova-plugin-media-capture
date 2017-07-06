@@ -297,7 +297,7 @@ public class Capture extends CordovaPlugin {
             Intent intent = new Intent(android.provider.MediaStore.ACTION_VIDEO_CAPTURE);
 
             if(Build.VERSION.SDK_INT > 7){
-                //intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File("cdvfile://localhost/cache")));
+                intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File("cdvfile://localhost/persistent/DCIM")));
                 intent.putExtra("android.intent.extra.durationLimit", req.duration);
                 intent.putExtra("android.intent.extra.videoQuality", req.quality);
             }
