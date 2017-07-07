@@ -401,7 +401,7 @@ public class Capture extends CordovaPlugin {
         }
 
         if( data == null){
-            File movie = new File(getTempDirectoryPath(), "Capture.avi");
+            File movie = new File(getTempDirectoryPath(), "Capture.mp4");
             data = Uri.fromFile(movie);
         }
 
