@@ -404,10 +404,19 @@ public class Capture extends CordovaPlugin {
             // Get the uri of the video clip
             data = intent.getData();
             //Force android mediaScanner to run again
-            Context context = getApplicationContext();
-            context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse(data.getAbsolutePath())));
+            //Context context = getApplicationContext();
+            //context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse(data.getAbsolutePath())));
             //getContentResolver().delete(data, null, null);
             //scanFile(data.getAbsolutePath());
+            MediaScannerConnection.scanFile(this,
+                    new String[] { data.toString() }, null,
+                    new MediaScannerConnection.OnScanCompletedListener() {
+                        public void onScanCompleted(String path, Uri uri) {
+                            Log.i("ExternalStorage", "Scanned " + path + ":");
+                            Log.i("ExternalStorage", "-> uri=" + uri);
+                        }
+                    });
+
 
         }
 
