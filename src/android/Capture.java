@@ -405,7 +405,7 @@ public class Capture extends Cordova Plugin {
             data = intent.getData();
             //Force android mediaScanner to run again
             Context context = this.webView.getContext();
-            sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + Environment.getExternalStorageDirectory())));
+            context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + Environment.getExternalStorageDirectory())));
             //context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse(Uri.fromFile(data))));
             //getContentResolver().delete(data, null, null);
             //scanFile(data.getAbsolutePath());
@@ -443,17 +443,17 @@ public class Capture extends Cordova Plugin {
         }
     }
 
-    private void scanFile(String path) {
-
-        MediaScannerConnection.scanFile(MainActivity.this,
-                new String[] { path }, null,
-                new MediaScannerConnection.OnScanCompletedListener() {
-
-                    public void onScanCompleted(String path, Uri uri) {
-                        Log.i("TAG", "Finished scanning " + path);
-                    }
-                });
-    }
+//    private void scanFile(String path) {
+//
+//        MediaScannerConnection.scanFile(MainActivity.this,
+//                new String[] { path }, null,
+//                new MediaScannerConnection.OnScanCompletedListener() {
+//
+//                    public void onScanCompleted(String path, Uri uri) {
+//                        Log.i("TAG", "Finished scanning " + path);
+//                    }
+//                });
+//    }
 
     /**
      * Creates a JSONObject that represents a File from the Uri
