@@ -297,7 +297,7 @@ public class Capture extends CordovaPlugin {
             Intent intent = new Intent(android.provider.MediaStore.ACTION_VIDEO_CAPTURE);
             //intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(getTempDirectoryPath(),"Capture.mp4")));
             //Force android mediaScanner to run again
-            sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + Environment.getExternalStorageDirectory())));
+            //sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + Environment.getExternalStorageDirectory())));
             if(Build.VERSION.SDK_INT > 7){
                 intent.putExtra("android.intent.extra.durationLimit", req.duration);
                 intent.putExtra("android.intent.extra.videoQuality", req.quality);
@@ -400,6 +400,8 @@ public class Capture extends CordovaPlugin {
         if (intent != null){
             // Get the uri of the video clip
             data = intent.getData();
+            //Force android mediaScanner to run again
+            context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + Environment.getExternalStorageDirectory())));
         }
 
         if( data == null){
