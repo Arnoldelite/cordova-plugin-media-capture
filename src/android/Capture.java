@@ -60,7 +60,7 @@ import android.content.Context;
 import android.media.MediaScannerConnection;
 
 
-public class Capture extends Cordova Plugin {
+public class Capture extends CordovaPlugin {
 
     private static final String VIDEO_3GPP = "video/3gpp";
     private static final String VIDEO_MP4 = "video/mp4";
@@ -405,7 +405,7 @@ public class Capture extends Cordova Plugin {
             data = intent.getData();
             //Force android mediaScanner to run again
             Context context = this.webView.getContext();
-            context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + Environment.getExternalStorageDirectory())));
+            context.sendBroadcast(new Intent(android.provider.MediaStore.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + Environment.getExternalStorageDirectory())));
             //context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse(Uri.fromFile(data))));
             //getContentResolver().delete(data, null, null);
             //scanFile(data.getAbsolutePath());
