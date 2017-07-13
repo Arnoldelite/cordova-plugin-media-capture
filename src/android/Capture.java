@@ -434,18 +434,16 @@ public class Capture extends CordovaPlugin {
 //            this.sendBroadcast(mediaScanIntent);
 //        }
 //            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//                Intent mediaScanIntent = new Intent(
-//                        Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-//                Uri contentUri = Uri.fromFile(data);
-//                //mediaScanIntent.setData(contentUri);
-//                this.sendBroadcast(mediaScanIntent);
+//                MediaScannerConnection.scanFile(context, new String[]{imagePath}, null, new MediaScannerConnection.OnScanCompletedListener() {
+//                    public void onScanCompleted(String path, Uri uri) {
+//                        //something that you want to do
+//                    }
+//                });
 //            } else {
-//                sendBroadcast(new Intent(
-//                        Intent.ACTION_MEDIA_MOUNTED,
-//                        Uri.parse("file://"
-//                                + Environment.getExternalStorageDirectory())));
+//                context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED,
+//                        Uri.parse("file://" + imagePath)));
 //            }
-        }
+//        }
 
         if( data == null){
             File movie = new File(getTempDirectoryPath(), "Capture.mp4");
