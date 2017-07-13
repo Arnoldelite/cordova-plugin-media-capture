@@ -58,6 +58,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.content.Context;
 import android.media.MediaScannerConnection;
+import android.util.Log;
 
 
 public class Capture extends CordovaPlugin {
@@ -407,7 +408,7 @@ public class Capture extends CordovaPlugin {
             Context context = this.webView.getContext();
             //context.sendBroadcast(new Intent(android.provider.MediaStore.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + Environment.getExternalStorageDirectory())));
             //context.sendBroadcast(new Intent(android.provider.MediaStore.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + Environment.getExternalStorageDirectory() + "/" + Environment.DIRECTORY_DCIM + "/" )));
-            //context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse(Environment.getExternalStorageDirectory() + "/" + Environment.DIRECTORY_DCIM + "/" )));
+            context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + Environment.getExternalStorageDirectory() + "/" + Environment.DIRECTORY_DCIM + "/" )));
             //context.sendBroadcast(new Intent(android.provider.MediaStore.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + Environment.getExternalStorageDirectory(Enviroment.DIRECTORY_DCIM))));
             //context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse(Uri.fromFile(data))));
             //getContentResolver().delete(data, null, null);
@@ -432,18 +433,18 @@ public class Capture extends CordovaPlugin {
 //            mediaScanIntent.setData(contentUri);
 //            this.sendBroadcast(mediaScanIntent);
 //        }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                Intent mediaScanIntent = new Intent(
-                        Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-                Uri contentUri = Uri.fromFile(data);
-                //mediaScanIntent.setData(contentUri);
-                this.sendBroadcast(mediaScanIntent);
-            } else {
-                sendBroadcast(new Intent(
-                        Intent.ACTION_MEDIA_MOUNTED,
-                        Uri.parse("file://"
-                                + Environment.getExternalStorageDirectory())));
-            }
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//                Intent mediaScanIntent = new Intent(
+//                        Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+//                Uri contentUri = Uri.fromFile(data);
+//                //mediaScanIntent.setData(contentUri);
+//                this.sendBroadcast(mediaScanIntent);
+//            } else {
+//                sendBroadcast(new Intent(
+//                        Intent.ACTION_MEDIA_MOUNTED,
+//                        Uri.parse("file://"
+//                                + Environment.getExternalStorageDirectory())));
+//            }
         }
 
         if( data == null){
