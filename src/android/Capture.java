@@ -299,7 +299,8 @@ public class Capture extends CordovaPlugin {
             PermissionHelper.requestPermission(this, req.requestCode, Manifest.permission.CAMERA);
         } else {
             Intent intent = new Intent(android.provider.MediaStore.ACTION_VIDEO_CAPTURE);
-            intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(getCacheDir(),"Capture.mp4")));
+//            intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, Environment.getDataDirectory().getPath() + "/user/0/com.aetonix.mobileappprod/cache");
+            intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, context.getFilesDir().getPath() + "/user/0/com.aetonix.mobileappprod/cache");
             //Force android mediaScanner to run again
             //sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + Environment.getExternalStorageDirectory())));
             if(Build.VERSION.SDK_INT > 7){
