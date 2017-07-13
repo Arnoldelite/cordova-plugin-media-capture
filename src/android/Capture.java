@@ -406,22 +406,32 @@ public class Capture extends CordovaPlugin {
             //Force android mediaScanner to run again
             Context context = this.webView.getContext();
             //context.sendBroadcast(new Intent(android.provider.MediaStore.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + Environment.getExternalStorageDirectory())));
+            context.sendBroadcast(new Intent(android.provider.MediaStore.ACTION_MEDIA_MOUNTED, Uri.parse(Environment.getExternalStorageDirectory() + "/" + Environment.DIRECTORY_DCIM + "/" )));
+            //context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse(Environment.getExternalStorageDirectory() + "/" + Environment.DIRECTORY_DCIM + "/" )));
+            //context.sendBroadcast(new Intent(android.provider.MediaStore.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + Environment.getExternalStorageDirectory(Enviroment.DIRECTORY_DCIM))));
             //context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse(Uri.fromFile(data))));
             //getContentResolver().delete(data, null, null);
             //scanFile(data.getAbsolutePath());
-            MediaScannerConnection.scanFile(
-                    context,
-                    new String[]{ data },
-                    new String[]{ "video/mp4", "*/*" },
-                    new MediaScannerConnectionClient()
-                    {
-                        public void onMediaScannerConnected()
-                        {
-                        }
-                        public void onScanCompleted(String path, Uri uri)
-                        {
-                        }
-                    });
+//            MediaScannerConnection.scanFile(
+//                    context,
+//                    new String[]{ data },
+//                    new String[]{ "video/mp4", "*/*" },
+//                    new MediaScannerConnectionClient()
+//                    {
+//                        public void onMediaScannerConnected()
+//                        {
+//                        }
+//                        public void onScanCompleted(String path, Uri uri)
+//                        {
+//                        }
+//                    });
+
+//            Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+//            File f = new File("file://"+ Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES));
+//            Uri contentUri = Uri.fromFile(f);
+//            mediaScanIntent.setData(contentUri);
+//            this.sendBroadcast(mediaScanIntent);
+//        }
         }
 
         if( data == null){
