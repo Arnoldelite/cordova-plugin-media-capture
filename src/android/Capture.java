@@ -405,20 +405,23 @@ public class Capture extends CordovaPlugin {
             data = intent.getData();
             //Force android mediaScanner to run again
             Context context = this.webView.getContext();
-            context.sendBroadcast(new Intent(android.provider.MediaStore.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + Environment.getExternalStorageDirectory())));
+            //context.sendBroadcast(new Intent(android.provider.MediaStore.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + Environment.getExternalStorageDirectory())));
             //context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse(Uri.fromFile(data))));
             //getContentResolver().delete(data, null, null);
             //scanFile(data.getAbsolutePath());
-//            MediaScannerConnection.scanFile(this,
-//                    new String[] { data.toString() }, null,
-//                    new MediaScannerConnection.OnScanCompletedListener() {
-//                        public void onScanCompleted(String path, Uri uri) {
-//                            Log.i("ExternalStorage", "Scanned " + path + ":");
-//                            Log.i("ExternalStorage", "-> uri=" + uri);
-//                        }
-//                    });
-//
-//
+            MediaScannerConnection.scanFile(
+                    context,
+                    new String[]{ data },
+                    new String[]{ "video/mp4", "*/*" },
+                    new MediaScannerConnectionClient()
+                    {
+                        public void onMediaScannerConnected()
+                        {
+                        }
+                        public void onScanCompleted(String path, Uri uri)
+                        {
+                        }
+                    });
         }
 
         if( data == null){
