@@ -299,9 +299,17 @@ public class Capture extends CordovaPlugin {
             PermissionHelper.requestPermission(this, req.requestCode, Manifest.permission.CAMERA);
         } else {
             Intent intent = new Intent(android.provider.MediaStore.ACTION_VIDEO_CAPTURE);
-//            intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, Environment.getDataDirectory().getPath() + "/user/0/com.aetonix.mobileappprod/cache");
+            //intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, Environment.getDataDirectory().getPath() + "/user/0/com.aetonix.mobileappprod/cache");
             Context context = this.webView.getContext();
-            intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, context.getFilesDir().getPath() + "/user/0/com.aetonix.mobileappprod/cache");
+            //intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, context.getFilesDir().getPath() + "/user/0/com.aetonix.mobileappprod/cache");
+//            _path = Environment.getExternalStorageDirectory() + "make_machine_example.jpg";
+//            File file = new File( _path );
+//            Uri outputFileUri = Uri.fromFile( file );
+//
+//            Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE );
+//            intent.putExtra( MediaStore.EXTRA_OUTPUT, outputFileUri );
+//
+            intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, "/storage/emulated/0/DCIM/Camera/");
             //Force android mediaScanner to run again
             //sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + Environment.getExternalStorageDirectory())));
             if(Build.VERSION.SDK_INT > 7){
@@ -311,6 +319,18 @@ public class Capture extends CordovaPlugin {
             this.cordova.startActivityForResult((CordovaPlugin) this, intent, req.requestCode);
         }
     }
+
+
+    private Uri getVideoUri() {
+        // Store image in dcim
+        // Here you can change yourinternal storage path to store those images..
+        File file = new File(Environment.getExternalStorageDirectory() + "/DCIM", CAPTURE_TITLE);
+        Uri vidUri = Uri.fromFile(file);
+
+        return vidUri;
+    }
+
+
 
     /**
      * Called when the video view exits.
@@ -403,48 +423,9 @@ public class Capture extends CordovaPlugin {
     public void onVideoActivityResult(Request req, Intent intent) {
         Uri data = null;
 
-        if (intent != null){
+        if (intent != null) {
             // Get the uri of the video clip
             data = intent.getData();
-            //Force android mediaScanner to run again
-            Context context = this.webView.getContext();
-            //context.sendBroadcast(new Intent(android.provider.MediaStore.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + Environment.getExternalStorageDirectory())));
-            //context.sendBroadcast(new Intent(android.provider.MediaStore.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + Environment.getExternalStorageDirectory() + "/" + Environment.DIRECTORY_DCIM + "/" )));
-            //context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + Environment.getExternalStorageDirectory() + "/" + Environment.DIRECTORY_DCIM + "/" )));
-            //context.sendBroadcast(new Intent(android.provider.MediaStore.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + Environment.getExternalStorageDirectory(Enviroment.DIRECTORY_DCIM))));
-            //context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse(Uri.fromFile(data))));
-            context.getContentResolver().delete(data, null, null);
-            //scanFile(data.getAbsolutePath());
-//            MediaScannerConnection.scanFile(
-//                    context,
-//                    new String[]{ data },
-//                    new String[]{ "video/mp4", "*/*" },
-//                    new MediaScannerConnectionClient()
-//                    {
-//                        public void onMediaScannerConnected()
-//                        {
-//                        }
-//                        public void onScanCompleted(String path, Uri uri)
-//                        {
-//                        }
-//                    });
-
-//            Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-//            File f = new File("file://"+ Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES));
-//            Uri contentUri = Uri.fromFile(f);
-//            mediaScanIntent.setData(contentUri);
-//            this.sendBroadcast(mediaScanIntent);
-//        }
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//                MediaScannerConnection.scanFile(context, new String[]{imagePath}, null, new MediaScannerConnection.OnScanCompletedListener() {
-//                    public void onScanCompleted(String path, Uri uri) {
-//                        //something that you want to do
-//                    }
-//                });
-//            } else {
-//                context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED,
-//                        Uri.parse("file://" + imagePath)));
-//            }
         }
 
         if( data == null){
