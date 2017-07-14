@@ -309,7 +309,8 @@ public class Capture extends CordovaPlugin {
 //            Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE );
 //            intent.putExtra( MediaStore.EXTRA_OUTPUT, outputFileUri );
 //
-            intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, "/storage/emulated/0/DCIM/Camera/");
+//            intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, "/storage/emulated/0/DCIM/Camera/");
+            intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, getVideoUri());
             //Force android mediaScanner to run again
             //sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + Environment.getExternalStorageDirectory())));
             if(Build.VERSION.SDK_INT > 7){
@@ -324,8 +325,9 @@ public class Capture extends CordovaPlugin {
     private Uri getVideoUri() {
         // Store image in dcim
         // Here you can change yourinternal storage path to store those images..
-        File file = new File(Environment.getExternalStorageDirectory() + "/DCIM", CAPTURE_TITLE);
-        Uri vidUri = Uri.fromFile(file);
+        Context context = this.webView.getContext();
+        //File file = new File(context.getFilesDir().getPath() + "/DCIM" + "/Camera", CAPTURE_TITLE);
+        Uri vidUri = Uri.fromFile(filcontext.getFilesDir().getPath() + "/DCIM" + "/Camera");
 
         return vidUri;
     }
