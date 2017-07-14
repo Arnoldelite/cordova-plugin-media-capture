@@ -327,7 +327,7 @@ public class Capture extends CordovaPlugin {
         // Here you can change yourinternal storage path to store those images..
         Context context = this.webView.getContext();
         //File file = new File(context.getFilesDir().getPath() + "/DCIM" + "/Camera", CAPTURE_TITLE);
-        Uri vidUri = Uri.fromFile(Environment.getExternalStoragePublicDirectory(DIRECTORY_DCIM) + "/DCIM" + "/Camera");
+        Uri vidUri = Uri.fromFile(Environment.getExternalStoragePublicDirectory(DIRECTORY_DCIM)  + "/Camera");
 
         return vidUri;
     }
