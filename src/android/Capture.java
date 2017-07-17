@@ -302,18 +302,19 @@ public class Capture extends CordovaPlugin {
             //intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, Environment.getDataDirectory().getPath() + "/user/0/com.aetonix.mobileappprod/cache");
             //Context context = this.webView.getContext();
             //intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, context.getFilesDir().getPath() + "/user/0/com.aetonix.mobileappprod/cache");
-            _path = Environment.getExternalStoragePublicDirectory() + "/Camera";
-            File file = new File( _path );
-            Uri outputFileUri = Uri.fromFile( file );
-
-            Intent intent = new Intent(android.provider.MediaStore.ACTION_VIDEO_CAPTURE);
-            intent.putExtra( android.provider.MediaStore.EXTRA_OUTPUT, outputFileUri );
+//            _path = Environment.getExternalStoragePublicDirectory() + "/Camera";
+//            File file = new File( _path );
+            //Uri outputFileUri = Uri.fromFile( "/storage/emulated/0/DCIM/Camera/" );
 //
-//            intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, "/storage/emulated/0/DCIM/Camera/");
+            Intent intent = new Intent(android.provider.MediaStore.ACTION_VIDEO_CAPTURE);
+            //intent.putExtra( android.provider.MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(getPicturesPath())) );
+//
+            //intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, "/storage/emulated/0/DCIM/Camera/");
             //intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, getVideoUri());
             //Force android mediaScanner to run again
             //sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + Environment.getExternalStorageDirectory())));
             //sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, getVideoUri()));
+            refreshGallery();
             if(Build.VERSION.SDK_INT > 7){
                 intent.putExtra("android.intent.extra.durationLimit", req.duration);
                 intent.putExtra("android.intent.extra.videoQuality", req.quality);
@@ -322,6 +323,11 @@ public class Capture extends CordovaPlugin {
         }
     }
 
+    private void refreshGallery() {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        //mediaScanIntent.setData(contentUri);
+        this.cordova.getActivity().sendBroadcast(mediaScanIntent);
+    }
 
 //    private Uri getVideoUri() {
 //        // Store image in dcim
