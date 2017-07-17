@@ -429,8 +429,8 @@ public class Capture extends CordovaPlugin {
         if (intent != null) {
             // Get the uri of the video clip
             data = intent.getData();
-            Context context = this.webView.getContext();
-            MediaScannerConnection.scanFile(context, new String[]{data.getAbsolutePath()}, null, null);
+//            Context context = this.webView.getContext();
+//            MediaScannerConnection.scanFile(context, new String[]{data.getAbsolutePath()}, null, null);
         }
 
         if( data == null){
