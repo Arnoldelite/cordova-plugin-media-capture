@@ -302,14 +302,15 @@ public class Capture extends CordovaPlugin {
             //intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, Environment.getDataDirectory().getPath() + "/user/0/com.aetonix.mobileappprod/cache");
             //Context context = this.webView.getContext();
             //intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, context.getFilesDir().getPath() + "/user/0/com.aetonix.mobileappprod/cache");
-//            _path = Environment.getExternalStoragePublicDirectory() + "/Camera";
+
+//            String _path = Environment.getExternalCacheDir() + "/Camera/Video.mp4";
 //            File file = new File( _path );
-            //Uri outputFileUri = Uri.fromFile( "/storage/emulated/0/DCIM/Camera/" );
+//            Uri outputFileUri = Uri.fromFile(file);
+////
+//            Intent intent = new Intent(android.provider.MediaStore.ACTION_VIDEO_CAPTURE);
+//            //intent.putExtra( android.provider.MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(getPicturesPath())) );
 //
-            Intent intent = new Intent(android.provider.MediaStore.ACTION_VIDEO_CAPTURE);
-            //intent.putExtra( android.provider.MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(getPicturesPath())) );
-//
-            intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, "/storage/emulated/0/Android/data/com.aetonix.mobileappprod/cache");
+            intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, Uri.parse(new File ("/storage/emulated/0/Android/data/com.aetonix.mobileappprod/cache/Video.mp4")));
             Log.i("TAG", "MediaStore.EXTRA_OUTPUT variable" + android.provider.MediaStore.EXTRA_OUTPUT);
             //intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, getVideoUri());
             //Force android mediaScanner to run again
@@ -322,7 +323,7 @@ public class Capture extends CordovaPlugin {
             }
             this.cordova.startActivityForResult((CordovaPlugin) this, intent, req.requestCode);
         }
-    }
+
 
 //    private void refreshGallery() {
 //        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
