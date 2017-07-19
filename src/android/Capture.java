@@ -304,7 +304,7 @@ public class Capture extends CordovaPlugin {
             //intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, context.getFilesDir().getPath() + "/user/0/com.aetonix.mobileappprod/cache");
 
 //            String _path = Environment.getExternalCacheDir() + "/Camera/Video.mp4";
-            File file = new File( cordova.getActivity().getExternalCacheDir() + "/Camera/Video.mp4" );
+            File file = new File( cordova.getActivity().getExternalStoragePublicDirectory() );
             Uri outputFileUri = Uri.fromFile(file);
 //
             Intent intent = new Intent(android.provider.MediaStore.ACTION_VIDEO_CAPTURE);
