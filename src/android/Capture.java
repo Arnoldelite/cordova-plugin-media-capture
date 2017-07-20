@@ -304,9 +304,13 @@ public class Capture extends CordovaPlugin {
             //intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, context.getFilesDir().getPath() + "/user/0/com.aetonix.mobileappprod/cache");
 
 //            String _path = Environment.getExternalCacheDir() + "/Camera/Video.mp4";
-            File file = new File( cordova.getActivity().getExternalStoragePublicDirectory() );
-            Uri outputFileUri = Uri.fromFile(file);
-//
+//            File file = new File( cordova.getActivity().getExternalStoragePublicDirectory() );
+//            Uri outputFileUri = Uri.fromFile(file);
+
+            File photo = createCaptureFile(VIDEO_MP4);
+            this.imageUri = new CordovaUri(FileProvider.getUriForFile(cordova.getActivity(),
+                    applicationId + ".provider",
+                    photo));
             Intent intent = new Intent(android.provider.MediaStore.ACTION_VIDEO_CAPTURE);
             intent.putExtra( android.provider.MediaStore.EXTRA_OUTPUT, outputFileUri );
 //
@@ -324,6 +328,10 @@ public class Capture extends CordovaPlugin {
             this.cordova.startActivityForResult((CordovaPlugin) this, intent, req.requestCode);
         }
 
+    }
+
+    private File createCaptureFile(int encodingType) {
+        return createCaptureFile(encodingType, "");
     }
 //    private void refreshGallery() {
 //        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
