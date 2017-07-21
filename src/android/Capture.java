@@ -84,7 +84,7 @@ public class Capture extends CordovaPlugin {
 
     private int numPics;                            // Number of pictures before capture activity
     private Uri imageUri;
-    private CordovaUri videoUri;
+    private Uri videoUri;
     private String applicationId;
 
 //    public void setContext(Context mCtx)
@@ -243,11 +243,27 @@ public class Capture extends CordovaPlugin {
         File cache = null;
 
         // Use internal storage
-        cache = cordova.getActivity().getCacheDir();
+        cache = cordova.getActivity().getExternalCacheDir();
 
         // Create the cache directory if it doesn't exist
-        cache.mkdirs();
+        //cache.mkdirs();
         return cache.getAbsolutePath();
+
+//        File cache = null;
+//
+//        // SD Card Mounted
+//        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+//            cache = cordova.getActivity().getExternalCacheDir();
+//        }
+//        // Use internal storage
+//        else {
+//            cache = cordova.getActivity().getCacheDir();
+//        }
+//
+//        // Create the cache directory if it doesn't exist
+//        cache.mkdirs();
+//        return cache.getAbsolutePath();
+
     }
 
     /**
@@ -314,11 +330,15 @@ public class Capture extends CordovaPlugin {
             this.applicationId = preferences.getString("applicationId", this.applicationId);
 
             File photo = createCaptureFile();
-            this.videoUri = new CordovaUri(FileProvider.getUriForFile(cordova.getActivity(),
-                    applicationId + ".provider",
-                    photo));
+            //this.videoUri = new CordovaUri(FileProvider.getUriForFile(cordova.getActivity(),
+            //      applicationId + ".provider",
+            //    photo));
+            this.videoUri = Uri.fromFile(photo);
+            Log.d("TAG", "File photo variable" + photo);
+            Log.d("TAG", "applicationId" + applicationId);
+            Log.d("TAG", "context" + cordova.getActivity());
             Intent intent = new Intent(android.provider.MediaStore.ACTION_VIDEO_CAPTURE);
-            intent.putExtra( android.provider.MediaStore.EXTRA_OUTPUT, photo );
+            intent.putExtra( android.provider.MediaStore.EXTRA_OUTPUT, videoUri);
 
             //intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, Uri.parse(new File("/storage/emulated/0/Android/data/com.aetonix.mobileappprod/cache/Video.mp4")));
             Log.i("TAG", "MediaStore.EXTRA_OUTPUT variable" + android.provider.MediaStore.EXTRA_OUTPUT);
