@@ -248,22 +248,6 @@ public class Capture extends CordovaPlugin {
         // Create the cache directory if it doesn't exist
         //cache.mkdirs();
         return cache.getAbsolutePath();
-
-//        File cache = null;
-//
-//        // SD Card Mounted
-//        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-//            cache = cordova.getActivity().getExternalCacheDir();
-//        }
-//        // Use internal storage
-//        else {
-//            cache = cordova.getActivity().getCacheDir();
-//        }
-//
-//        // Create the cache directory if it doesn't exist
-//        cache.mkdirs();
-//        return cache.getAbsolutePath();
-
     }
 
     /**
@@ -314,25 +298,12 @@ public class Capture extends CordovaPlugin {
         if (cameraPermissionInManifest && !PermissionHelper.hasPermission(this, Manifest.permission.CAMERA)) {
             PermissionHelper.requestPermission(this, req.requestCode, Manifest.permission.CAMERA);
         } else {
-
-            //intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, Environment.getDataDirectory().getPath() + "/user/0/com.aetonix.mobileappprod/cache");
-            //Context context = this.webView.getContext();
-            //intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, context.getFilesDir().getPath() + "/user/0/com.aetonix.mobileappprod/cache");
-
-//            String _path = Environment.getExternalCacheDir() + "/Camera/Video.mp4";
-//            File file = new File( cordova.getActivity().getExternalStoragePublicDirectory() );
-//            Uri outputFileUri = Uri.fromFile(file);
-
-
             //Adding an API to CoreAndroid to get the BuildConfigValue
             //This allows us to not make this a breaking change to embedding
             this.applicationId = (String) BuildHelper.getBuildConfigValue(cordova.getActivity(), "APPLICATION_ID");
             this.applicationId = preferences.getString("applicationId", this.applicationId);
 
             File photo = createCaptureFile();
-            //this.videoUri = new CordovaUri(FileProvider.getUriForFile(cordova.getActivity(),
-            //      applicationId + ".provider",
-            //    photo));
             this.videoUri = Uri.fromFile(photo);
             Log.d("TAG", "File photo variable" + photo);
             Log.d("TAG", "applicationId" + applicationId);
@@ -340,13 +311,7 @@ public class Capture extends CordovaPlugin {
             Intent intent = new Intent(android.provider.MediaStore.ACTION_VIDEO_CAPTURE);
             intent.putExtra( android.provider.MediaStore.EXTRA_OUTPUT, videoUri);
 
-            //intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, Uri.parse(new File("/storage/emulated/0/Android/data/com.aetonix.mobileappprod/cache/Video.mp4")));
             Log.i("TAG", "MediaStore.EXTRA_OUTPUT variable" + android.provider.MediaStore.EXTRA_OUTPUT);
-            //intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, getVideoUri());
-            //Force android mediaScanner to run again
-            //sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + Environment.getExternalStorageDirectory())));
-            //sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, getVideoUri()));
-            //refreshGallery();
             if (Build.VERSION.SDK_INT > 7) {
                 intent.putExtra("android.intent.extra.durationLimit", req.duration);
                 intent.putExtra("android.intent.extra.videoQuality", req.quality);
@@ -359,32 +324,6 @@ public class Capture extends CordovaPlugin {
     private File createCaptureFile() {
         return new File(getTempDirectoryPath(), "Capture.mp4");
     }
-
-//    private String formatFileName() {
-//        SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");//Give you current date
-//        String currentDate = date.format(new Date());
-//        SimpleDateFormat time = new SimpleDateFormat("hh:mm a");//Give you current time
-//        String currentTime = time.format(new Date());//Store like this
-//         return "VID"+"_"+currentDate +"_"+currentTime +".mp4";
-//    }
-
-//    private void refreshGallery() {
-//        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-//        //mediaScanIntent.setData(contentUri);
-//        this.cordova.getActivity().sendBroadcast(mediaScanIntent);
-//    }
-
-//    private Uri getVideoUri() {
-//        // Store image in dcim
-//        // Here you can change yourinternal storage path to store those images..
-//        Context context = this.webView.getContext();
-//        //File file = new File(context.getFilesDir().getPath() + "/DCIM" + "/Camera", CAPTURE_TITLE);
-//        Uri vidUri = Uri.fromFile(Environment.getExternalStoragePublicDirectory(DIRECTORY_DCIM)  + "/Camera");
-//
-//        return vidUri;
-//    }
-
-
 
     /**
      * Called when the video view exits.
@@ -480,8 +419,6 @@ public class Capture extends CordovaPlugin {
         if (intent != null) {
             // Get the uri of the video clip
             data = intent.getData();
-//            Context context = this.webView.getContext();
-//            MediaScannerConnection.scanFile(context, new String[]{data.getAbsolutePath()}, null, null);
         }
 
         if( data == null){
