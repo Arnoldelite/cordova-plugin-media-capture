@@ -35,7 +35,6 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 
-import org.apache.cordova.BuildHelper;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.LOG;
@@ -297,8 +296,8 @@ public class Capture extends CordovaPlugin {
         } else {
             //Adding an API to CoreAndroid to get the BuildConfigValue
             //This allows us to not make this a breaking change to embedding
-            this.applicationId = (String) BuildHelper.getBuildConfigValue(cordova.getActivity(), "APPLICATION_ID");
-            this.applicationId = preferences.getString("applicationId", this.applicationId);
+//            this.applicationId = (String) BuildHelper.getBuildConfigValue(cordova.getActivity(), "APPLICATION_ID");
+//            this.applicationId = preferences.getString("applicationId", this.applicationId);
 
             File photo = createCaptureFile();
             this.videoUri = Uri.fromFile(photo);
