@@ -301,9 +301,6 @@ public class Capture extends CordovaPlugin {
 
             File photo = createCaptureFile();
             this.videoUri = Uri.fromFile(photo);
-            Log.d("TAG", "File photo variable" + photo);
-            Log.d("TAG", "applicationId" + applicationId);
-            Log.d("TAG", "context" + cordova.getActivity());
             Intent intent = new Intent(android.provider.MediaStore.ACTION_VIDEO_CAPTURE);
             intent.putExtra( android.provider.MediaStore.EXTRA_OUTPUT, videoUri);
 
@@ -439,17 +436,6 @@ public class Capture extends CordovaPlugin {
         }
     }
 
-//    private void scanFile(String path) {
-//
-//        MediaScannerConnection.scanFile(MainActivity.this,
-//                new String[] { path }, null,
-//                new MediaScannerConnection.OnScanCompletedListener() {
-//
-//                    public void onScanCompleted(String path, Uri uri) {
-//                        Log.i("TAG", "Finished scanning " + path);
-//                    }
-//                });
-//    }
 
     /**
      * Creates a JSONObject that represents a File from the Uri
